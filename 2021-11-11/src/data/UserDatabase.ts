@@ -1,9 +1,11 @@
 import { BaseDatabase } from "./BaseDatabase";
-import { User } from "../model/User";
+import { UserModel } from "../model/User.Model";
 
 export class UserDatabase extends BaseDatabase {
+  constructor(){
+    super('lama_users')
+  }
 
-  private static TABLE_NAME = "";
 
   public async createUser(
     id: string,
@@ -21,19 +23,19 @@ export class UserDatabase extends BaseDatabase {
           password,
           role
         })
-        .into(UserDatabase.TABLE_NAME);
+        .into(this.tableName);
     } catch (error) {
       throw new Error(error.sqlMessage || error.message);
     }
   }
 
-  public async getUserByEmail(email: string): Promise<User> {
+  public async getUserByEmail(email: string): Promise<UserModel> {
     const result = await this.getConnection()
       .select("*")
-      .from(UserDatabase.TABLE_NAME)
+      .from(this.tableName)
       .where({ email });
 
-    return User.toUserModel(result[0]);
+    return UserModel.toUserModel(result[0]);
   }
 
 }

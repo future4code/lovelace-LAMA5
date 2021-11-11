@@ -3,6 +3,9 @@ import Knex   from "knex";
 
 
 export abstract class BaseDatabase {
+     constructor(
+        protected tableName: string
+    ) { }
 
     private static connection: Knex | null = null;
 

@@ -6,3 +6,4 @@ export class IdGenerator{
         return v4();
     }
 }
+export default new IdGenerator()

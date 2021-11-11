@@ -1,4 +1,4 @@
-export class User{
+export class UserModel{
     constructor(
     private id: string,
     private name: string,
@@ -58,8 +58,8 @@ export class User{
           }
     }
 
-    static toUserModel(user: any): User {
-        return new User(user.id, user.name, user.email, user.password, User.stringToUserRole(user.role));
+    static toUserModel(user: any): UserModel {
+        return new UserModel(user.id, user.name, user.email, user.password, UserModel.stringToUserRole(user.role));
       }
 
 
