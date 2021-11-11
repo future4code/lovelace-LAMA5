@@ -1,0 +1,20 @@
+[
+	{
+		"id" : "1",
+		"name" : "Banda1",
+		"music_genre" : "Eletronica",
+		"responsible" : "Jonas"
+	},
+	{
+		"id" : "2",
+		"name" : "Banda2",
+		"music_genre" : "Rock",
+		"responsible" : "Chijo"
+	},
+	{
+		"id" : "3",
+		"name" : "Banda3",
+		"music_genre" : "Pagode",
+		"responsible" : "Daniel"
+	}
+]
