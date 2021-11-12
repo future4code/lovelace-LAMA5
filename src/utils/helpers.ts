@@ -16,10 +16,7 @@ export const isEmail = (emailAddress: string): boolean => {
 };
 
 export const passwdLength = (password: string): boolean => {
-    if (
-        password.length < Number(process.env.PASSWD_MIN) ||
-        password.length > Number(process.env.PASSWD_MAX)
-    ) {
+    if ( 6 < password.length && password.length < 40 ) {
         return true;
     }
 
