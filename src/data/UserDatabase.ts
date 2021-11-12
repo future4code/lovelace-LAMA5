@@ -1,41 +1,42 @@
 import { BaseDatabase } from "./BaseDatabase";
 import { UserModel } from "../model/User.Model";
+import UserRepository from '../business/user/UserRepository';
 
-export class UserDatabase extends BaseDatabase {
-  constructor(){
-    super('lama_users')
+export class UserDatabase extends BaseDatabase implements UserRepository {
+  constructor() {
+    super('lama_users');
   }
 
-
-  public async createUser(
-    id: string,
-    email: string,
-    name: string,
-    password: string,
-    role: string
-  ): Promise<void> {
+  public async createUser(user: UserModel): Promise<boolean> {
     try {
       await this.getConnection()
         .insert({
-          id,
-          email,
-          name,
-          password,
-          role
+          id: user.getId(),
+          name: user.getName(),
+          email: user.getEmail(),
+          password: user.getPassword(),
+          role: user.getRole()
         })
         .into(this.tableName);
+      return true;
     } catch (error) {
-      throw new Error(error.sqlMessage || error.message);
+      console.log(error);
+      return false;
     }
   }
 
-  public async getUserByEmail(email: string): Promise<UserModel> {
-    const result = await this.getConnection()
-      .select("*")
-      .from(this.tableName)
-      .where({ email });
+  public async getUserByEmail(email: string): Promise<UserModel | boolean> {
+    try {
+      const result = await this.getConnection()
+        .select("*")
+        .from(this.tableName)
+        .where({ email });
 
-    return UserModel.toUserModel(result[0]);
+      return UserModel.toUserModel(result[0]);
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   }
 
 }

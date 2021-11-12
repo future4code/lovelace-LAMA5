@@ -3,15 +3,15 @@ import * as bcrypt from "bcryptjs";
 
 export class HashManager {
 
-    public async hash(text: string): Promise<string> {
+    public hash(text: string): string {
         const rounds = 12;
-        const salt = await bcrypt.genSalt(rounds);
-        const result = await bcrypt.hash(text, salt);
+        const salt = bcrypt.genSaltSync(rounds);
+        const result = bcrypt.hashSync(text, salt);
         return result;
     }
 
-    public async compare(text: string, hash: string): Promise<boolean>{
-        return await bcrypt.compare(text, hash);
+    public compare(text: string, hash: string): boolean{
+        return bcrypt.compareSync(text, hash);
     }
 
 }

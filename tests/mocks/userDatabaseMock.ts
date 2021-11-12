@@ -4,21 +4,18 @@ import { userAdminMock, userNormalMock } from "./userMock";
 
 export class UserDatabaseMock {
   
-  public async createUser(
-    id: string,
-    email: string,
-    name: string,
-    password: string,
-    role: string): Promise<void> {}
+  public async createUser(user: UserModel): Promise<boolean> {
+      return true
+    }
 
-  public async getUserByEmail(email: string): Promise<UserModel | undefined> {
+  public async getUserByEmail(email: string): Promise<UserModel | boolean> {
     switch (email) {
       case "user1@gmail.com":
         return userNormalMock;
       case "user2@gmail.com":
         return userAdminMock;
       default:
-        return undefined;
+        return false;
     }
   }
 

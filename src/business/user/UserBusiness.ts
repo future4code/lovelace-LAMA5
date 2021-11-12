@@ -13,7 +13,7 @@ export class UserBusiness {
         private hashManager: HashManager,
         private authenticator: Authenticator,
         private userData: UserDatabase
-    ){}
+    ) { }
 
     async createUser(input: UserInputDTO) {
 
@@ -60,12 +60,12 @@ export class UserBusiness {
             name,
             email,
             this.hashManager.hash(password),
-            role,
+            role as UserRole,
         );
 
         const result = await this.userData.createUser(newUser);
 
-        const token = this.authenticator.generate({ id, role });
+        const token = this.authenticator.generateToken({ id, role });
 
         if (result === false) {
             throw new BaseError(
@@ -79,23 +79,33 @@ export class UserBusiness {
             };
         }
     };
-    }
 
-    async getUserByEmail(user: LoginInputDTO) {
 
-        const userDatabase = new UserDatabase();
-        const userFromDB = await userDatabase.getUserByEmail(user.email);
+    async getUserByEmail(input: LoginInputDTO) {
+        const { email, password } = input;
 
-        const hashManager = new HashManager();
-        const hashCompare = await hashManager.compare(user.password, userFromDB.getPassword());
-
-        const authenticator = new Authenticator();
-        const accessToken = authenticator.generateToken({ id: userFromDB.getId(), role: userFromDB.getRole() });
-
-        if (!hashCompare) {
-            throw new Error("Invalid Password!");
+        if (!email || !password) {
+            throw new BaseError('Todos os campos são obrigatórios', 422);
         }
 
-        return accessToken;
+        if (!isEmail(email)) {
+            throw new BaseError('`email` Inválido.', 401);
+        }
+
+        const user = await this.userData.getUserByEmail(email) as UserModel;
+
+        if (!user) {
+            throw new BaseError('Usuário não encontrado.', 401);
+        }
+
+        if (!this.hashManager.compare(password, user.getPassword())) {
+            throw new BaseError('`email` ou `senha` Inválidos.', 401);
+        }
+
+        const token = this.authenticator.generateToken({ id: user.getId(), role: user.getRole() });
+
+        return {
+            token
+        };
     }
 }
