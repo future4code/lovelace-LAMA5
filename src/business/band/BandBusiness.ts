@@ -1,7 +1,6 @@
 import BaseError  from "../../error/BaseError";
 import { UserRole } from "../../model/User.Model";
-import { AuthenticationData, Authenticator } from "../../services/Authenticator";
-import { HashManager } from "../../services/HashManager";
+import { Authenticator } from "../../services/Authenticator";
 import { IdGenerator } from "../../services/IdGenerator";
 import BandRepository from "./BandRepository";
 import { BandModel } from "../../model/Band.Model";
@@ -11,13 +10,12 @@ export default class BandBusiness {
 
      constructor(
         private idGenerator: IdGenerator,
-        private hashManager: HashManager,
         private authenticator: Authenticator,
         private bandData: BandRepository
     ) { }
     
     async registryBandBusiness (input: BandRegistryDTO, token: string): Promise<object> {
-        const tokenVerify = new Authenticator().getData(token) as AuthenticationData;
+        const tokenVerify = this.authenticator.getData(token);
 
         if (!tokenVerify) {
             throw new BaseError(
@@ -28,7 +26,7 @@ export default class BandBusiness {
 
         if (tokenVerify.role !== UserRole.ADMIN){
             throw new BaseError(
-                "Você não autorização para completar essa ação",
+                "Você não tem autorização para completar esta ação",
                 401
             );
         }

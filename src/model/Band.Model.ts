@@ -16,3 +16,8 @@ export class BandModel {
       }
     
 }
+export interface BandRegistryDTO {
+    name: string,
+    music_genre: string,
+    responsible: string
+}
