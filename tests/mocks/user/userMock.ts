@@ -1,4 +1,4 @@
-import { UserModel, UserRole } from "../../src/model/User.Model";
+import { UserModel, UserRole } from "../../../src/model/User.Model";
 
 export const userNormalMock = new UserModel(
   "id_user_1",

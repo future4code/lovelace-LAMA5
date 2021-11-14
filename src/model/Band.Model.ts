@@ -21,3 +21,7 @@ export interface BandRegistryDTO {
     music_genre: string,
     responsible: string
 }
+export interface BandDetailsDTO {
+    bandId: string,
+    bandName: string
+}

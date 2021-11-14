@@ -1,6 +1,8 @@
-import knex from "knex";
-import Knex   from "knex";
 
+import dotenv from "dotenv";
+import knex, { Knex } from "knex";
+
+dotenv.config();
 
 export abstract class BaseDatabase {
      constructor(
@@ -19,6 +21,7 @@ export abstract class BaseDatabase {
                   user: process.env.DB_USER,
                   password: process.env.DB_PASSWORD,
                   database: process.env.DB_DATABASE_NAME,
+                  multipleStatements: true
                 },
               });        
         }

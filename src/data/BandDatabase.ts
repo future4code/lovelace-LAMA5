@@ -1,6 +1,6 @@
 import BandRepository from "../business/band/BandRepository";
 import BaseError from "../error/BaseError";
-import { BandModel } from "../model/Band.Model";
+import { BandDetailsDTO, BandModel } from "../model/Band.Model";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class BandDatabase extends BaseDatabase implements BandRepository {
@@ -36,6 +36,19 @@ export class BandDatabase extends BaseDatabase implements BandRepository {
             return false
         }
     }
-
-
+    public async datailBand(input: BandDetailsDTO): Promise<BandModel | undefined>{
+        try {
+            const result = await this.getConnection()
+                .select("*")
+                .from(this.tableName)
+                .where({id: input.bandId})
+                .orWhere({name: input.bandName})
+            return result[0]
+        } catch (error) {
+            console.log(error)
+            throw new BaseError(
+                error.sqlMessage || error.message,
+                403)
+        }
+    }
 }

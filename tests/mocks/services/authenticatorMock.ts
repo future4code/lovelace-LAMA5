@@ -1,10 +1,17 @@
-import { UserRole } from "../../src/model/User.Model";
-import { AuthenticationData } from "../../src/services/Authenticator";
+import { UserRole } from "../../../src/model/User.Model";
+import { AuthenticationData } from "../../../src/services/Authenticator";
 
 
 export class AuthenticatorMock {
   public generateToken = (input: AuthenticationData): string => {
-    return "token_mock"
+    switch(input.id){
+      case "id_user_1":
+        return "token_normal"
+      case "id_user_2":
+        return "token_admin"
+      default:
+        return ""
+    }
   }
 
   public getData = jest.fn ((token: string) => {
@@ -15,7 +22,6 @@ export class AuthenticatorMock {
           role: UserRole.NORMAL
         }
       case "token_admin":
-        console.log(token);
         return {
           id: "id_mock",
           role: UserRole.ADMIN

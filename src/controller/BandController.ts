@@ -3,7 +3,6 @@ import {BandRegistryDTO} from "../business/band/BandBusiness"
 import BandBusiness from "../business/band/BandBusiness"
 import { BandDatabase } from "../data/BandDatabase";
 import { IdGenerator } from "../services/IdGenerator";
-import { HashManager } from "../services/HashManager";
 import { Authenticator } from "../services/Authenticator";
 
 
@@ -13,7 +12,6 @@ export default class BandController {
     constructor() {
         this.bandBusiness = new BandBusiness(
                 new IdGenerator(),
-                new HashManager(),
                 new Authenticator(),
                 new BandDatabase()
             );
@@ -35,7 +33,17 @@ export default class BandController {
             res.status(200).send(result);
         } catch (error) {
             console.log(error);
-            res.status(error.statusCode).send({ message: error.message })
+            res.status(error.Code).send({ message: error.message })
+        }
+    }
+    async datailBand(req: Request, res: Response) {
+        try {
+            const { bandId, bandName} = req.body;
+            const result = this.bandBusiness.datailBand({bandId, bandName});
+            res.status(201).send(result)
+        } catch (error) {
+            console.log(error);
+            res.status(error.Code).send({ message: error.message })
         }
     }
 }
