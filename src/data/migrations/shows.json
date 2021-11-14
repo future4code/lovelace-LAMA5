@@ -1,0 +1,37 @@
+[
+    {
+        "id": "1",
+        "week_day": "Sexta",
+        "start_time": 123456789,
+        "end_time": 123456800,
+        "band_id": "1"
+    },
+    {
+        "id": "2",
+        "week_day": "Sabado",
+        "start_time": 123456801,
+        "end_time": 123456900,
+        "band_id": "1"
+    },
+    {
+        "id": "3",
+        "week_day": "Domingo",
+        "start_time": 123456789,
+        "end_time": 123456800,
+        "band_id": "1"
+    },
+    {
+        "id": "4",
+        "week_day": "Sexta",
+        "start_time": 123456801,
+        "end_time": 123456900,
+        "band_id": "2"
+    },
+    {
+        "id": "5",
+        "week_day": "Sabado",
+        "start_time": 123456789,
+        "end_time": 123456800,
+        "band_id": "2"
+    }
+]

@@ -4,11 +4,11 @@
   "description": "Projeto LAMA ",
   "main": "index.js",
   "scripts": {
-    "test": "clear && echo \"Running tests...\" && node ./node_modules/jest/bin/jest.js",
+    "test": "echo \"Running tests...\" && node ./node_modules/jest/bin/jest.js",
     "test1": "clear && echo \"Running tests...\" && node ./node_modules/jest/bin/jest.js --watch",
     "start": "ts-node ./src/index.ts",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules ./src/index.ts",
-    "migrations": "ts-node-dev ./src/data/migrations/migrations.ts"
+    "migrations": "ts-node ./src/data/migrations/migrations.ts"
   },
   "keywords": [
     "api",

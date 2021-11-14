@@ -1,5 +1,5 @@
 
-import { UserModel } from "../../src/model/User.Model";
+import { UserModel } from "../../../src/model/User.Model";
 import { userAdminMock, userNormalMock } from "./userMock";
 
 export class UserDatabaseMock {

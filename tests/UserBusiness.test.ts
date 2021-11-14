@@ -1,10 +1,10 @@
 import { UserBusiness } from "../src/business/user/UserBusiness";
 import { UserDatabase } from "../src/data/UserDatabase";
 import { Authenticator } from "../src/services/Authenticator";
-import { AuthenticatorMock } from "./mocks/authenticatorMock";
-import { HashManagerMock } from "./mocks/hashManagerMock";
-import { IdGeneratorMock } from "./mocks/idGeneratorMock";
-import { UserDatabaseMock } from "./mocks/userDatabaseMock";
+import { AuthenticatorMock } from "./mocks/services/authenticatorMock";
+import { HashManagerMock } from "./mocks/services/hashManagerMock";
+import { IdGeneratorMock } from "./mocks/services/idGeneratorMock";
+import { UserDatabaseMock } from "./mocks/user/userDatabaseMock";
 
 const userBusinessMock = new UserBusiness(
     new IdGeneratorMock(),
@@ -58,8 +58,6 @@ describe("Testing SignupBusiness", () => {
                 password: "234",
                 role: "normal"
             };
-
-            console.log(await userBusinessMock.createUser(newUser));
         } catch (error) {
             expect(error.message).toEqual("É necessário um 'password' entre 8 e 40 caracteres.");
             expect(error.code).toBe(406);
